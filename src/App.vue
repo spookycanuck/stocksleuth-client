@@ -1,30 +1,48 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <v-app>
+    <v-app-bar title="Stock Sleuth" class="bg-blue">
+       <v-list-item prepend-icon="mdi-facebook"></v-list-item>
+      <v-list-item prepend-icon="mdi-reddit"></v-list-item>
+      <v-list-item prepend-icon="mdi-twitter"></v-list-item>
+    </v-app-bar>
+
+    <v-main>
+      <NavBar />
+      <router-view />
+    </v-main>
+
+    <v-footer class="bg-blue">
+      <v-row justify="center" no-gutters>
+        <v-btn
+          v-for="link in links"
+          :key="link"
+          color="white"
+          variant="text"
+          class="mx-2"
+          rounded="xl"
+          @click="$router.push(link) ? $router.push(link) : $router.push('/')"
+        >
+          {{ link }}
+        </v-btn>
+        <v-col class="text-center mt-4" cols="12">
+          <v-icon size="small" icon="mdi-copyright"></v-icon>
+          {{ new Date().getFullYear() }} — <strong>StockSleuth, LLC.</strong>
+        </v-col>
+      </v-row>
+    </v-footer>
+  </v-app>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import NavBar from "@/components/NavBar.vue";
 
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+export default {
+  name: "App",
+  components: {
+    NavBar,
+  },
+  data: () => ({
+    links: ["home", "about", "terms of service", "privacy policy", "help", "contact"],
+  }),
+};
+</script>

@@ -1,14 +1,8 @@
 import { createStore } from 'vuex'
+import searches from './modules/searches/index.js'
 
 export default createStore({
-  state: {
-  },
-  getters: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
   modules: {
+    searches: searches
   }
 })
