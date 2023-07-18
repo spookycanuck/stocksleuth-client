@@ -1,12 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
-import About from '../views/About.vue'
-import Services from '../views/Services.vue'
-import TermsOfService from '../views/TermsOfService.vue'
-import Help from '../views/Help.vue'
+import About from '../views/staticPages/About.vue'
+import Services from '../views/staticPages/Services.vue'
+import TermsOfService from '../views/staticPages/TermsOfService.vue'
+import Help from '../views/staticPages/Help.vue'
 import Login from '../views/Login.vue'
-import Contact from '../views/Contact.vue'
-import PrivacyPolicy from '../views/PrivacyPolicy.vue'
+import Contact from '../views/staticPages/Contact.vue'
+import PrivacyPolicy from '../views/staticPages/PrivacyPolicy.vue'
+import ForgotPw from '../views/ForgotPw.vue'
 
 const routes = [
   {
@@ -49,6 +50,11 @@ const routes = [
     path: '/help',
     name: 'help',
     component: Help 
+  },
+  {
+    path: '/forgot-password',
+    name: 'forgot password',
+    component: ForgotPw
   },
   // {
   //   path: '/about',
