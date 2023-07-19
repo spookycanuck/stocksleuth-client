@@ -20,7 +20,7 @@
           variant="text"
           class="mx-2"
           rounded="xl"
-          @click="$router.push(link) ? $router.push(link) : $router.push('/')"
+          @click="$router.push(link.split(' ').join('-')) ? $router.push(link.split(' ').join('-')) : $router.push('/')"
         >
           {{ link }}
         </v-btn>
