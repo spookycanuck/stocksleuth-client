@@ -7,13 +7,13 @@
       <v-divider></v-divider>
       <v-card-text>
         <p>Sign in with your username and password</p>
-        <v-form ref='login'>
+        <v-form ref="login" v-model="isFormValid">
           <v-text-field
             class="field"
             color="blue"
-            label="Username"
+            label="Email"
             type="text"
-            v-model="name"
+            v-model="email"
             :rules="nameRules"
             outline
             clearable
@@ -31,12 +31,16 @@
           >
           </v-text-field>
         </v-form>
+        <p class="signUp">
+          Don't have an account? Sign up
+          <router-link to="/sign-up">here</router-link>
+        </p>
       </v-card-text>
       <v-divider style="margin-top: 20px"></v-divider>
       <v-card-actions>
         <v-btn class="fpw" v-on:click="resetPw">Forgot Password?</v-btn>
         <v-spacer></v-spacer>
-        <v-btn size="x-large" v-on:click="login">Login</v-btn>
+        <v-btn size="x-large" v-on:click="login" :disabled="!isFormValid">Login</v-btn>
       </v-card-actions>
     </v-card>
   </div>
@@ -46,9 +50,10 @@
 export default {
   name: "Login",
   data: () => ({
-    name: null,
+    email: null,
     password: null,
-    nameRules: [(v) => !!v || "Username is required"],
+    isFormValid: false,
+    nameRules: [(v) => !!v || "Email is required"],
     pwRules: [
       (x) => !!x || "Password is required",
       //x => /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/.test(x) || 'Password must be at least 6 characters.\nPassword must contain at least one number, lowercase letter, and uppercase letter',
@@ -57,10 +62,10 @@ export default {
   methods: {
     login() {
       let result = {
-        name: this.name,
+        email: this.email,
         password: this.password,
       };
-      console.log("login info:", this.name, this.password);
+      console.log("login info:", this.email, this.password);
       this.$refs.login.reset();
     },
     resetPw() {
@@ -95,7 +100,8 @@ p {
   color: whitesmoke;
   background-color: rgb(134, 151, 156);
 }
-.fpw {
+.fpw,
+.signUp {
   font-size: 12px;
 }
 </style>
