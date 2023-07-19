@@ -8,6 +8,7 @@ import Login from '../views/Login.vue'
 import Contact from '../views/staticPages/Contact.vue'
 import PrivacyPolicy from '../views/staticPages/PrivacyPolicy.vue'
 import ForgotPw from '../views/ForgotPw.vue'
+import SignUp from '../views/SignUp.vue'
 
 const routes = [
   {
@@ -37,12 +38,12 @@ const routes = [
     component: Services
   },
   {
-    path: '/privacy policy',
+    path: '/privacy-policy',
     name: 'privacy policy',
     component: PrivacyPolicy
   },
   {
-    path: '/terms of service',
+    path: '/terms-of-service',
     name: 'terms of service',
     component: TermsOfService
   },
@@ -55,6 +56,11 @@ const routes = [
     path: '/forgot-password',
     name: 'forgot password',
     component: ForgotPw
+  },
+  {
+    path: '/sign-up',
+    name: 'sign up',
+    component: SignUp
   },
   // {
   //   path: '/about',
