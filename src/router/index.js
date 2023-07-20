@@ -9,6 +9,8 @@ import Contact from '../views/staticPages/Contact.vue'
 import PrivacyPolicy from '../views/staticPages/PrivacyPolicy.vue'
 import ForgotPw from '../views/ForgotPw.vue'
 import SignUp from '../views/SignUp.vue'
+import Account from '../views/Account.vue'
+import Notifications from '../views/Notifications.vue'
 
 const routes = [
   {
@@ -61,6 +63,16 @@ const routes = [
     path: '/sign-up',
     name: 'SignUp',
     component: SignUp
+  },
+  {
+    path: '/account',
+    name: 'Account',
+    component: Account
+  },
+  {
+    path: '/notifications',
+    name: 'Notifications',
+    component: Notifications
   },
   // {
   //   path: '/about',
