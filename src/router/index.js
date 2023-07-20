@@ -13,53 +13,53 @@ import SignUp from '../views/SignUp.vue'
 const routes = [
   {
     path: '/',
-    name: 'home',
+    name: 'Home',
     component: Home,
     alias: '/home'
   },
   {
     path: '/about',
-    name: 'about',
+    name: 'About',
     component: About
   },
   {
     path: '/contact',
-    name: 'contact',
+    name: 'Contact',
     component: Contact
   },
   {
     path: '/login',
-    name: 'login',
+    name: 'Login',
     component: Login
   },
   {
     path: '/services',
-    name: 'services',
+    name: 'Services',
     component: Services
   },
   {
     path: '/privacy-policy',
-    name: 'privacy policy',
+    name: 'Privacy Policy',
     component: PrivacyPolicy
   },
   {
     path: '/terms-of-service',
-    name: 'terms of service',
+    name: 'Terms of Service',
     component: TermsOfService
   },
   {
     path: '/help',
-    name: 'help',
+    name: 'Help',
     component: Help 
   },
   {
     path: '/forgot-password',
-    name: 'forgot password',
+    name: 'ForgotPW',
     component: ForgotPw
   },
   {
     path: '/sign-up',
-    name: 'sign up',
+    name: 'SignUp',
     component: SignUp
   },
   // {
