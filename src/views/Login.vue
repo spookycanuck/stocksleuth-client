@@ -72,10 +72,10 @@ export default {
       );
 
       if (res.status == 200 && res.data.length > 0) {
-        localStorage.setItem("user-info", JSON.stringify(res.data[0]));
+        localStorage.setItem("user-info", JSON.stringify(res.data[0].firstName));
         this.$store.dispatch("auth/login")
         this.$router.push({ name: "Home" });
-        console.log('auth state: ', this.$store.getters['auth/auth'])
+        // console.log('auth state: ', this.$store.getters['auth/auth'])
       }
     },
     resetPw() {
@@ -90,7 +90,7 @@ export default {
   mounted() {
     // If user info is in local storage, user will not be
     //   able to go back to this page & redirect to home
-    let user = localStorage.getItem("user-info");
+    let user = this.$store.getters["auth/auth"];
     if (user) {
       this.$router.push({ name: "Home" });
     }

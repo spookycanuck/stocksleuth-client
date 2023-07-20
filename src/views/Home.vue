@@ -37,9 +37,6 @@
   height: 100%;
   width: 100%;
 }
-h2 {
-  text-align: center;
-}
 </style>
 
 <script>
@@ -59,6 +56,11 @@ export default {
       name: "",
       tab: "summary",
     };
+  },
+  computed: {
+    auth() {
+        return this.$store.getters["auth/auth"];
+      },
   },
   methods: {
     search() {
@@ -89,12 +91,14 @@ export default {
     async loadData() {
       // If user info is not in local storage, user will not be
       //   able to go to this page & redirect to sign up
-      let user = localStorage.getItem("user-info");
+
+      let user = this.$store.getters["auth/auth"];
       if (!user) {
         this.$router.push({ name: "SignUp" });
       }
       else {
-        this.name = JSON.parse(user).firstName;
+        let data = JSON.parse(localStorage.getItem('user-info'))
+        this.name = data.charAt(0).toUpperCase() + data.slice(1);
       }
     },
   },

@@ -110,11 +110,12 @@ export default {
       });
 
       if (res.status == 201) {
-        localStorage.setItem("user-info", JSON.stringify(res.data));
+        localStorage.setItem("user-info", JSON.stringify(res.data.firstName));
+        this.$store.dispatch("auth/login")
         this.$router.push({ name: "Home" });
         // this.$refs.signUp.reset();
         // this.checkbox = [];
-        console.log("success!")
+        // console.log("success!")
       }
     },
   },
