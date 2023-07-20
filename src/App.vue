@@ -1,12 +1,31 @@
 <template>
   <v-app>
     <v-app-bar title="Stock Sleuth" class="bg-blue">
-       <v-list-item prepend-icon="mdi-facebook" target="__blank" href="https://www.facebook.com"></v-list-item>
-      <v-list-item prepend-icon="mdi-reddit" target="__blank" href="https://www.reddit.com"></v-list-item>
-      <v-list-item prepend-icon="mdi-twitter" target="__blank" href="https://www.twitter.com"></v-list-item>
-      <v-list-item prepend-icon="mdi-logout" @click="logout"></v-list-item>
-      <v-list-item prepend-icon="mdi-login" @click="this.$router.push({name: 'Login'})"></v-list-item>
-
+      <v-list-item
+        prepend-icon="mdi-facebook"
+        target="__blank"
+        href="https://www.facebook.com"
+      ></v-list-item>
+      <v-list-item
+        prepend-icon="mdi-reddit"
+        target="__blank"
+        href="https://www.reddit.com"
+      ></v-list-item>
+      <v-list-item
+        prepend-icon="mdi-twitter"
+        target="__blank"
+        href="https://www.twitter.com"
+      ></v-list-item>
+      <v-list-item
+        prepend-icon="mdi-logout"
+        v-if="auth"
+        @click="logout"
+      ></v-list-item>
+      <v-list-item
+        prepend-icon="mdi-login"
+        v-if="!auth"
+        @click="this.$router.push({ name: 'Login' })"
+      ></v-list-item>
     </v-app-bar>
 
     <v-main>
@@ -23,7 +42,11 @@
           variant="text"
           class="mx-2"
           rounded="xl"
-          @click="$router.push(link.split(' ').join('-')) ? $router.push(link.split(' ').join('-')) : $router.push('/')"
+          @click="
+            $router.push(link.split(' ').join('-'))
+              ? $router.push(link.split(' ').join('-'))
+              : $router.push('/')
+          "
         >
           {{ link }}
         </v-btn>
@@ -45,19 +68,32 @@ export default {
     NavBar,
   },
   data: () => ({
-    links: ["home", "about", "terms of service", "privacy policy", "help", "contact"],
-    local: false
+    links: [
+      "home",
+      "about",
+      "terms of service",
+      "privacy policy",
+      "help",
+      "contact",
+    ],
+    local: false,
   }),
   methods: {
     logout() {
       if (localStorage.getItem("user-info")) {
         localStorage.clear();
+        this.$store.dispatch("auth/logout");
         this.$router.push({ name: "Login" });
       } else {
         this.$router.push({ name: "SignUp" });
       }
     },
-  }
+  },
+  computed: {
+    auth() {
+      return this.$store.getters["auth/auth"];
+    },
+  },
 };
 </script>
 
@@ -70,8 +106,8 @@ export default {
   color: #2c3e50;
 }
 body {
-  padding:0;
-  margin:0;
+  padding: 0;
+  margin: 0;
 }
 .logo {
   width: 35px;
@@ -79,5 +115,9 @@ body {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+h2 {
+  text-align: center;
+  margin-top: 15px
 }
 </style>
