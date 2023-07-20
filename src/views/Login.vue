@@ -50,12 +50,12 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 
 export default {
   name: "Login",
   data: () => ({
-    img: require('@/assets/logo.png'),
+    img: require("@/assets/logo.png"),
     email: null,
     password: null,
     isFormValid: false,
@@ -73,13 +73,20 @@ export default {
 
       if (res.status == 200 && res.data.length > 0) {
         localStorage.setItem("user-info", JSON.stringify(res.data[0]));
+        this.$store.dispatch("auth/login")
         this.$router.push({ name: "Home" });
+        console.log('auth state: ', this.$store.getters['auth/auth'])
       }
     },
     resetPw() {
       this.$router.push({ name: "ForgotPW" });
     },
   },
+  computed: {
+      auth() {
+        return this.$store.getters["auth/auth"];
+      },
+    },
   mounted() {
     // If user info is in local storage, user will not be
     //   able to go back to this page & redirect to home

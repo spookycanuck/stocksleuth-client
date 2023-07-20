@@ -38,6 +38,8 @@ export default {
       if (localStorage.getItem("user-info")) {
         localStorage.clear();
         this.$router.push({ name: "Login" });
+        this.$store.dispatch('auth/logout')
+        console.log('auth state: ', this.$store.getters['auth/auth'])
       } else {
         this.$router.push({ name: "SignUp" });
       }
