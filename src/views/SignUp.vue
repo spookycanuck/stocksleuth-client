@@ -2,6 +2,7 @@
   <div class="container">
     <v-card elevation="4" tag="section" class="signup">
       <v-card-title>
+        <img class="logo img" :src="img" />
         <h3>Sign up with StockSleuth!</h3>
       </v-card-title>
       <v-divider></v-divider>
@@ -56,12 +57,9 @@
             <template v-slot:label>
               <div class="signUp">
                 I agree to the
-                <router-link
-                to="/terms-of-service"
-                  target="_blank"
-                >
+                <router-link to="/terms-of-service" target="_blank">
                   Terms of Service
-              </router-link>
+                </router-link>
               </div>
             </template>
           </v-checkbox>
@@ -82,9 +80,12 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "SignUp",
   data: () => ({
+    img: require('@/assets/logo.png'),
     fname: null,
     lname: null,
     email: null,
@@ -99,24 +100,22 @@ export default {
     terms: [(y) => !!y || "Please agree to the terms of service"],
   }),
   methods: {
-    signup() {
-      let result = {
-        fname: this.fname,
-        lname: this.lname,
-        name: this.email,
+    async signup() {
+      let res = await axios.post("http://localhost:3000/users", {
+        firstName: this.fname,
+        lastName: this.lname,
+        email: this.email,
         password: this.password,
-        checkbox: false,
-      };
-      console.log("sign up info:");
-      console.log(
-        this.fname,
-        this.lname,
-        this.email,
-        this.password,
-        this.checkbox
-      );
-      this.$refs.signUp.reset();
-      this.checkbox = [];
+        termsAccepted: this.checkbox,
+      });
+
+      if (res.status == 201) {
+        localStorage.setItem("user-info", JSON.stringify(res.data));
+        this.$router.push({ name: "Home" });
+        // this.$refs.signUp.reset();
+        // this.checkbox = [];
+        console.log("success!")
+      }
     },
   },
 };

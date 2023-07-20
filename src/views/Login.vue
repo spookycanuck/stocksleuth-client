@@ -2,6 +2,7 @@
   <div class="container">
     <v-card elevation="4" tag="section" class="login">
       <v-card-title>
+        <img class="logo img" :src="img" />
         <h3>Stock Sleuth Login</h3>
       </v-card-title>
       <v-divider></v-divider>
@@ -40,16 +41,21 @@
       <v-card-actions>
         <v-btn class="fpw" v-on:click="resetPw">Forgot Password?</v-btn>
         <v-spacer></v-spacer>
-        <v-btn size="x-large" v-on:click="login" :disabled="!isFormValid">Login</v-btn>
+        <v-btn size="x-large" v-on:click="login" :disabled="!isFormValid"
+          >Login</v-btn
+        >
       </v-card-actions>
     </v-card>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: "Login",
   data: () => ({
+    img: require('@/assets/logo.png'),
     email: null,
     password: null,
     isFormValid: false,
@@ -60,17 +66,27 @@ export default {
     ],
   }),
   methods: {
-    login() {
-      let result = {
-        email: this.email,
-        password: this.password,
-      };
-      console.log("login info:", this.email, this.password);
-      this.$refs.login.reset();
+    async login() {
+      let res = await axios.get(
+        `http://localhost:3000/users?email=${this.email}&password=${this.password}`
+      );
+
+      if (res.status == 200 && res.data.length > 0) {
+        localStorage.setItem("user-info", JSON.stringify(res.data[0]));
+        this.$router.push({ name: "Home" });
+      }
     },
     resetPw() {
-      this.$router.push({ name: "forgot password" });
+      this.$router.push({ name: "ForgotPW" });
     },
+  },
+  mounted() {
+    // If user info is in local storage, user will not be
+    //   able to go back to this page & redirect to home
+    let user = localStorage.getItem("user-info");
+    if (user) {
+      this.$router.push({ name: "Home" });
+    }
   },
 };
 </script>
