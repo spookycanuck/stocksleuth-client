@@ -1,9 +1,12 @@
 <template>
   <v-app>
     <v-app-bar title="Stock Sleuth" class="bg-blue">
-       <v-list-item prepend-icon="mdi-facebook"></v-list-item>
-      <v-list-item prepend-icon="mdi-reddit"></v-list-item>
-      <v-list-item prepend-icon="mdi-twitter"></v-list-item>
+       <v-list-item prepend-icon="mdi-facebook" target="__blank" href="https://www.facebook.com"></v-list-item>
+      <v-list-item prepend-icon="mdi-reddit" target="__blank" href="https://www.reddit.com"></v-list-item>
+      <v-list-item prepend-icon="mdi-twitter" target="__blank" href="https://www.twitter.com"></v-list-item>
+      <v-list-item prepend-icon="mdi-logout" @click="logout"></v-list-item>
+      <v-list-item prepend-icon="mdi-login" @click="this.$router.push({name: 'Login'})"></v-list-item>
+
     </v-app-bar>
 
     <v-main>
@@ -43,7 +46,18 @@ export default {
   },
   data: () => ({
     links: ["home", "about", "terms of service", "privacy policy", "help", "contact"],
+    local: false
   }),
+  methods: {
+    logout() {
+      if (localStorage.getItem("user-info")) {
+        localStorage.clear();
+        this.$router.push({ name: "Login" });
+      } else {
+        this.$router.push({ name: "SignUp" });
+      }
+    },
+  }
 };
 </script>
 
@@ -59,5 +73,11 @@ body {
   padding:0;
   margin:0;
 }
-
+.logo {
+  width: 35px;
+  height: 50px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
 </style>
