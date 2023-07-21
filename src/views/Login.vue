@@ -88,8 +88,7 @@ export default {
       },
     },
   mounted() {
-    // If user info is in local storage, user will not be
-    //   able to go back to this page & redirect to home
+    // TODO: Set user session data to save session if user refreshes page
     let user = this.$store.getters["auth/auth"];
     if (user) {
       this.$router.push({ name: "Home" });
