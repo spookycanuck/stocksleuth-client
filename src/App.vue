@@ -1,6 +1,17 @@
 <template>
   <v-app>
-    <v-app-bar title="Stock Sleuth" class="bg-blue">
+    <v-app-bar class="bg-blue">
+      <v-img
+        class="mx-2 head"
+        :src="img"
+        max-height="40"
+        max-width="40"
+        contain
+        @click="this.$router.push('/home')"
+      ></v-img>
+      <v-toolbar-title class="ml-2 head" @click="this.$router.push('/home')">
+        Stock Sleuth
+      </v-toolbar-title>
       <v-list-item
         prepend-icon="mdi-facebook"
         target="__blank"
@@ -77,6 +88,7 @@ export default {
       "contact",
     ],
     local: false,
+    img: require("@/assets/logo.png"),
   }),
   methods: {
     logout() {
@@ -116,8 +128,11 @@ body {
   margin-left: auto;
   margin-right: auto;
 }
+.head:hover {
+  cursor: pointer;
+}
 h2 {
   text-align: center;
-  margin-top: 15px
+  margin-top: 15px;
 }
 </style>
