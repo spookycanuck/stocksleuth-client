@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import store from '@/store'
 import Home from '../views/Home.vue'
 import About from '../views/staticPages/About.vue'
 import Services from '../views/staticPages/Services.vue'
@@ -11,13 +12,17 @@ import ForgotPw from '../views/ForgotPw.vue'
 import SignUp from '../views/SignUp.vue'
 import Account from '../views/Account.vue'
 import Notifications from '../views/Notifications.vue'
+import NotFound from '../views/staticPages/NotFound.vue'
 
 const routes = [
   {
     path: '/',
     name: 'Home',
     component: Home,
-    alias: '/home'
+    alias: '/home',
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/about',
@@ -67,12 +72,23 @@ const routes = [
   {
     path: '/account',
     name: 'Account',
-    component: Account
+    component: Account,
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/notifications',
     name: 'Notifications',
-    component: Notifications
+    component: Notifications,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
+    component: NotFound,
   },
   // {
   //   path: '/about',
@@ -89,6 +105,19 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  const isAuth = store.getters['auth/auth'];
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+
+  //Check for protected route
+  if (requiresAuth && !isAuth) {
+    next("/sign-up");
+  }
+  else {
+    next();
+  }
 })
 
 export default router

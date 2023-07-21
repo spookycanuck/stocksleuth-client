@@ -50,7 +50,6 @@ export default {
     Price,
     Articles,
   },
-
   data() {
     return {
       name: "",
@@ -91,12 +90,8 @@ export default {
     async loadData() {
       // If user info is not in local storage, user will not be
       //   able to go to this page & redirect to sign up
-
-      let user = this.$store.getters["auth/auth"];
-      if (!user) {
-        this.$router.push({ name: "SignUp" });
-      }
-      else {
+      let user = localStorage.getItem('user-info')
+      if (user) {
         let data = JSON.parse(localStorage.getItem('user-info'))
         this.name = data.charAt(0).toUpperCase() + data.slice(1);
       }

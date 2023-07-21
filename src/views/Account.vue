@@ -12,10 +12,8 @@ export default {
   },
   methods: {
     loadData() {
-      let user = this.$store.getters["auth/auth"];
-      if (!user) {
-        this.$router.push({ name: "SignUp" });
-      } else {
+      let user = localStorage.getItem('user-info')
+      if (user) {
         let data = JSON.parse(localStorage.getItem("user-info"));
         this.name = data.charAt(0).toUpperCase() + data.slice(1);
       }
