@@ -43,8 +43,10 @@
         <v-spacer></v-spacer>
         <v-btn size="x-large" @click="login" :disabled="!isFormValid"
           >Login</v-btn
-        >
-      </v-card-actions>
+          >
+        </v-card-actions>
+        <p class="fail" v-show="loginFail"> Username and password not found</p>
+        <p class="fail" v-show="loginFail" style="margin-bottom: 10px;"> Please check login info and try again</p>
     </v-card>
   </div>
 </template>
@@ -59,6 +61,7 @@ export default {
     email: null,
     password: null,
     isFormValid: false,
+    loginFail: false,
     nameRules: [(v) => !!v || "Email is required"],
     pwRules: [
       (x) => !!x || "Password is required",
@@ -76,6 +79,10 @@ export default {
         this.$store.dispatch("auth/login")
         this.$router.push({ name: "Home" });
         // console.log('auth state: ', this.$store.getters['auth/auth'])
+        this.loginFail = false;
+      }
+      else {
+        this.loginFail = true;
       }
     },
     resetPw() {
@@ -125,5 +132,10 @@ p {
 .fpw,
 .signUp {
   font-size: 12px;
+}
+.fail {
+  font-size: 16px;
+  color: red;
+  font-style: italic;
 }
 </style>
