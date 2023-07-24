@@ -1,8 +1,12 @@
 <template>
-  <h2>Welcome Back, {{ name }}</h2>
   <div class="container">
+    <div>
+    <Search />
+  </div>
+  <div style="height: 100%; width:100%">
+    <h2 style="display:auto;">Welcome Back, {{ name }}</h2>
     <v-card width="100%" height="100%">
-      <v-tabs v-model="tab" bg-color="red">
+      <v-tabs v-model="tab" bg-color="error">
         <v-tab value="summary">Summary</v-tab>
         <v-tab value="price">Price</v-tab>
         <v-tab value="articles">Articles</v-tab>
@@ -26,14 +30,12 @@
       </v-card-actions>
     </v-card>
   </div>
+  </div>
 </template>
 
 <style scoped>
 .container {
-  background-color: beige;
   display: flex;
-  justify-content: center;
-  align-items: center;
   height: 100%;
   width: 100%;
 }
@@ -43,12 +45,14 @@
 import Summary from "@/components/Summary.vue";
 import Price from "@/components/Price.vue";
 import Articles from "@/components/Articles.vue";
+import Search from "@/components/Search.vue"
 
 export default {
   components: {
     Summary,
     Price,
     Articles,
+    Search
   },
   data() {
     return {
