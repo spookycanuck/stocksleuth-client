@@ -1,6 +1,6 @@
 <template>
   <div class="searchContainer">
-    <div class="searchBar">
+    <div class="searchBar" @keyup.enter="search">
       <v-text-field
         class="searchField"
         type="text"
@@ -46,12 +46,12 @@ export default {
       if (this.ticker.length > 0) {
         this.validSearch = true;
         this.inList = false;
-        if (this.tickerList.includes(this.ticker)) {
+        if (this.tickerList.includes(this.ticker.toUpperCase())) {
           console.log("already in list");
           this.inList = true;
           return;
         }
-        this.tickerList.push(this.ticker);
+        this.tickerList.push(this.ticker.toUpperCase());
         this.ticker = "";
         // this.inList = false;
       } else {
