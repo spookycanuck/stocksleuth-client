@@ -8,7 +8,7 @@
       <v-divider></v-divider>
       <v-card-text>
         <p>Sign in with your username and password</p>
-        <v-form ref="login" v-model="isFormValid">
+        <v-form ref="login" v-model="isFormValid" @keyup.enter="login">
           <v-text-field
             class="field"
             color="blue"
@@ -39,9 +39,9 @@
       </v-card-text>
       <v-divider style="margin-top: 20px"></v-divider>
       <v-card-actions>
-        <v-btn class="fpw" v-on:click="resetPw">Forgot Password?</v-btn>
+        <v-btn class="fpw" @click="resetPw">Forgot Password?</v-btn>
         <v-spacer></v-spacer>
-        <v-btn size="x-large" v-on:click="login" :disabled="!isFormValid"
+        <v-btn size="x-large" @click="login" :disabled="!isFormValid"
           >Login</v-btn
         >
       </v-card-actions>
