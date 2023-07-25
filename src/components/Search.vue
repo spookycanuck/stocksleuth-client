@@ -15,17 +15,37 @@
   </div>
   <p class="fail" v-if="!validSearch">Please enter a valid Ticker ID</p>
   <p class="fail" v-if="inList">Ticker ID is already in the list below</p>
-  <v-divider />
+  <v-divider style="margin-top: 17px" />
 
-  <v-list>
-    <v-list-item v-for="ticker in tickerList" :key="ticker">
-      {{ ticker }}
-    </v-list-item>
-  </v-list>
-  <div v-if="tickerList.length > 0">
+  <v-expansion-panels style="max-width: 330px; margin: 10px 0px 0px 2.5%">
+    <v-expansion-panel
+      style="margin-top: 7px"
+      v-for="ticker in tickerList"
+      :key="ticker"
+    >
+      <v-expansion-panel-title> {{ ticker }}</v-expansion-panel-title>
+      <v-expansion-panel-text>
+        Some content
+        <v-divider />
+        <div style="display: flex; margin-top: 10px">
+          <v-list-item
+            prepend-icon="mdi-close-thick"
+            @click="deleteTicker(ticker)"
+          ></v-list-item>
+          <v-spacer />
+          <v-list-item
+            prepend-icon="mdi-chart-line"
+            @click="graphTicker(ticker)"
+          ></v-list-item>
+        </div>
+      </v-expansion-panel-text>
+    </v-expansion-panel>
+  </v-expansion-panels>
+
+  <div style="margin-top: 17px" v-if="tickerList.length > 0">
     <v-divider />
-    <div class="clear-btn">
-      <v-btn @click="clearList" text color="error"> Clear List </v-btn>
+    <div class="clear">
+      <v-btn class="clear-btn" @click="clearList"> Clear List </v-btn>
     </div>
   </div>
 </template>
@@ -33,21 +53,19 @@
 <script>
 export default {
   name: "search",
-  data() {
-    return {
-      ticker: "",
-      tickerList: [],
-      validSearch: true,
-      inList: false,
-    };
-  },
+  data: () => ({
+    ticker: "",
+    tickerList: [],
+    validSearch: true,
+    inList: false,
+  }),
   methods: {
     search() {
       if (this.ticker.length > 0) {
         this.validSearch = true;
         this.inList = false;
         if (this.tickerList.includes(this.ticker.toUpperCase())) {
-          console.log("already in list");
+          // console.log("already in list");
           this.inList = true;
           return;
         }
@@ -58,6 +76,13 @@ export default {
         this.inList = false;
         this.validSearch = false;
       }
+    },
+    deleteTicker(currentTicker) {
+      let x = this.tickerList.indexOf(currentTicker);
+      this.tickerList.splice(x, 1);
+    },
+    graphTicker(currentTicker) {
+      console.log("graph " + currentTicker);
     },
     clearList() {
       this.tickerList = [];
@@ -78,6 +103,7 @@ export default {
   margin-bottom: 5px;
 }
 .searchField {
+  background-color: white;
   margin-top: 15px;
   width: 200px;
 }
@@ -91,6 +117,12 @@ export default {
   height: 40px;
   margin-left: 10px;
   margin-top: 25px;
+  background-color: whitesmoke;
+  color: darkgreen;
+}
+.search-btn:hover {
+  background-color: darkgreen;
+  color: whitesmoke;
 }
 .fail {
   font-size: 16px;
@@ -99,9 +131,17 @@ export default {
   display: flex;
   justify-content: center;
 }
-.clear-btn {
+.clear {
   margin-top: 15px;
   display: flex;
   justify-content: center;
+}
+.clear-btn:hover {
+  background-color: darkred;
+  color: whitesmoke;
+}
+.clear-btn {
+  background-color: whitesmoke;
+  color: darkred;
 }
 </style>
