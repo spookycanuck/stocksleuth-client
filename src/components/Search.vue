@@ -20,12 +20,20 @@
   <v-expansion-panels style="max-width: 330px; margin: 10px 0px 0px 2.5%">
     <v-expansion-panel
       style="margin-top: 7px"
-      v-for="ticker in tickerList"
+      v-for="ticker in tickerDict"
       :key="ticker"
     >
-      <v-expansion-panel-title> {{ ticker }}</v-expansion-panel-title>
+      <v-expansion-panel-title> {{ ticker.id }}</v-expansion-panel-title>
       <v-expansion-panel-text>
-        Some content
+        <p>Name:
+          {{ ticker.name }}
+        </p>
+        <p>24hr High:
+          {{ ticker.priceHigh }}
+        </p>
+        <p>24hr Low:
+          {{ ticker.priceLow }}
+        </p>
         <v-divider />
         <div style="display: flex; margin-top: 10px">
           <v-list-item
@@ -42,7 +50,7 @@
     </v-expansion-panel>
   </v-expansion-panels>
 
-  <div style="margin-top: 17px" v-if="tickerList.length > 0">
+  <div style="margin-top: 17px" v-if="tickerDict.length > 0">
     <v-divider />
     <div class="clear">
       <v-btn class="clear-btn" @click="clearList"> Clear List </v-btn>
@@ -55,37 +63,52 @@ export default {
   name: "search",
   data: () => ({
     ticker: "",
-    tickerList: [],
+    nameX: 'EXAMPLE Name',
+    priceH: 420.69,
+    priceL: 169.42,
+    tickerDict: [],
     validSearch: true,
     inList: false,
   }),
   methods: {
     search() {
-      if (this.ticker.length > 0) {
-        this.validSearch = true;
-        this.inList = false;
-        if (this.tickerList.includes(this.ticker.toUpperCase())) {
-          // console.log("already in list");
-          this.inList = true;
-          return;
-        }
-        this.tickerList.push(this.ticker.toUpperCase());
-        this.ticker = "";
-        // this.inList = false;
-      } else {
+      /*
+        Checks conditions & populates side bar with searches. Currently only test
+        data exists. API calls should call back to searches/actions.js
+      */
+      let payload = {};
+      if (this.ticker == null || this.ticker.length == 0) {
         this.inList = false;
         this.validSearch = false;
       }
+      else if (this.ticker.length > 0) {
+        this.validSearch = true;
+        this.inList = false;
+        var target = this.tickerDict.find(x => x.id === this.ticker.toUpperCase())
+        if (target) {
+          this.inList = true;
+          return;
+        }
+        payload = {
+          id: this.ticker.toUpperCase(),
+          name: this.nameX,
+          priceHigh: '$' + this.priceH,
+          priceLow: '$' + this.priceL,
+        }
+        this.tickerDict.push(payload);
+        this.ticker = "";
+      }
     },
     deleteTicker(currentTicker) {
-      let x = this.tickerList.indexOf(currentTicker);
-      this.tickerList.splice(x, 1);
+      let x = this.tickerDict.indexOf(currentTicker);
+      this.tickerDict.splice(x, 1);
     },
     graphTicker(currentTicker) {
-      console.log("graph " + currentTicker);
+      console.log('graph ' + currentTicker.id);
+      console.log(currentTicker)
     },
     clearList() {
-      this.tickerList = [];
+      this.tickerDict = []
       this.validSearch = true;
       this.inList = false;
       this.ticker = "";
