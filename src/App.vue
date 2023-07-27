@@ -39,7 +39,7 @@
       ></v-list-item>
     </v-app-bar>
 
-    <v-main>
+    <v-main class="vmain">
       <NavBar />
       <router-view />
     </v-main>
@@ -127,6 +127,16 @@ body {
   width: 100%;
   background-color: lightgray;
 }
+.vmain {
+  background-color: lightgrey;
+}
+.fitVert {
+  height: fit-content;
+}
+.v-card {
+  border-radius: 4px;
+  width: 500px;
+}
 .logo {
   width: 35px;
   height: 50px;
@@ -140,5 +150,19 @@ body {
 h2 {
   text-align: center;
   margin-top: 15px;
+}
+.fpw,
+.signUp {
+  font-size: 12px;
+}
+.signup button:hover,
+.login button:hover {
+  color: whitesmoke;
+  background-color: rgb(134, 151, 156);
+}
+.signup,
+.field,
+.login {
+  margin-top: 10px;
 }
 </style>
