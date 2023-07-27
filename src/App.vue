@@ -121,6 +121,12 @@ body {
   padding: 0;
   margin: 0;
 }
+.container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  background-color: lightgray;
+}
 .logo {
   width: 35px;
   height: 50px;
