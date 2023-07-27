@@ -6,7 +6,9 @@ export default {
     namespaced: true,
     state() {
         return {
-            search: {ticker: 'AAPL', price: '$157', articles: 'hello world'}
+            ticker: null,
+            currentSearch: null,
+            searchList: [],
         }
     },
     actions,
