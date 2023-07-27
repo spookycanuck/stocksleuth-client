@@ -6,7 +6,7 @@ export default {
     namespaced: true,
     state() {
         return {
-            auth: false
+            auth: true //Set to true for dev. Set to false for testing user workflow.
         }
     },
     actions,
