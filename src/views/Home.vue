@@ -1,11 +1,11 @@
 <template>
   <div class="container">
-    <div>
+    <div class="search">
       <Search />
     </div>
-    <div style="height: 100%; width: 100%">
+    <div class="home">
       <h2 style="display: auto">Welcome Back, {{ name }}</h2>
-      <v-card width="100%" height="100%">
+      <v-card width="80vw" height="80vh" style="background-color: whitesmoke; margin: auto;">
         <v-tabs v-model="tab" bg-color="error">
           <v-tab value="summary">Summary</v-tab>
           <v-tab value="price">Price</v-tab>
@@ -34,10 +34,14 @@
 </template>
 
 <style scoped>
-.container {
-  display: flex;
+.home {
+  display: block;
+  margin: auto;
   height: 100%;
-  width: 100%;
+  width: 85%;
+}
+.search {
+  background-color: whitesmoke;
 }
 </style>
 
