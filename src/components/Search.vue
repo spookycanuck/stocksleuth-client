@@ -25,13 +25,20 @@
     >
       <v-expansion-panel-title> {{ ticker.id }}</v-expansion-panel-title>
       <v-expansion-panel-text>
-        <p>Name:
+        <p>
+          Name:
           {{ ticker.name }}
         </p>
-        <p>24hr High:
+        <p>
+          Current Price:
+          {{ ticker.current }}
+        </p>
+        <p>
+          24hr High:
           {{ ticker.priceHigh }}
         </p>
-        <p>24hr Low:
+        <p>
+          24hr Low:
           {{ ticker.priceLow }}
         </p>
         <v-divider />
@@ -59,56 +66,91 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "search",
   data: () => ({
     ticker: "",
-    nameX: 'EXAMPLE Name',
-    priceH: 420.69,
-    priceL: 169.42,
+    name: "**TEST**",
+    currentPrice: 6969,
+    recentHigh: 420.69,
+    recentLow: 69.42,
     tickerDict: [],
     validSearch: true,
     inList: false,
   }),
   methods: {
-    search() {
+    async search() {
       /*
         Checks conditions & populates side bar with searches. Currently only test
         data exists. API calls should call back to searches/actions.js
       */
-      let payload = {};
+
       if (this.ticker == null || this.ticker.length == 0) {
         this.inList = false;
         this.validSearch = false;
-      }
-      else if (this.ticker.length > 0) {
+      } else if (this.ticker.length > 0) {
         this.validSearch = true;
         this.inList = false;
-        var target = this.tickerDict.find(x => x.id === this.ticker.toUpperCase())
+        var target = this.tickerDict.find(
+          (x) => x.id === this.ticker.toUpperCase()
+        );
         if (target) {
           this.inList = true;
           return;
         }
+      }
+      this.currentSearch(); // can be removed later
+    },
+    async currentSearch() {
+      // -------------------------------
+      // currentSearch actions
+      let payload = {};
+      let res = await axios.get(
+        `http://localhost:3000/tickers?ticker=${this.ticker.toUpperCase()}`
+      );
+      if (res.status == 200 && res.data.length > 0) {
+        let x = res.data[0];
         payload = {
           id: this.ticker.toUpperCase(),
-          name: this.nameX,
-          priceHigh: '$' + this.priceH,
-          priceLow: '$' + this.priceL,
-        }
-        this.tickerDict.push(payload);
-        this.ticker = "";
+          name: x.name,
+          current: x.currentPrice,
+          priceHigh: x.recentHigh,
+          priceLow: x.recentLow,
+        };
       }
+      // -------------------------------
+      else {
+        // poor error handling for testing. Please remove when smart
+        let x = this;
+        payload = {
+          id: this.ticker.toUpperCase(),
+          name: x.name,
+          current: x.currentPrice,
+          priceHigh: x.recentHigh,
+          priceLow: x.recentLow,
+        };
+      }
+      this.searchList(payload);
+    },
+    searchList(payload) {
+      // -------------------------------
+      // searchList actions
+      this.tickerDict.push(payload);
+      this.ticker = "";
+      // -------------------------------
     },
     deleteTicker(currentTicker) {
       let x = this.tickerDict.indexOf(currentTicker);
       this.tickerDict.splice(x, 1);
     },
     graphTicker(currentTicker) {
-      console.log('graph ' + currentTicker.id);
-      console.log(currentTicker)
+      console.log("graph " + currentTicker.id);
+      console.log(currentTicker);
     },
     clearList() {
-      this.tickerDict = []
+      this.tickerDict = [];
       this.validSearch = true;
       this.inList = false;
       this.ticker = "";
