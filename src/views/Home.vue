@@ -10,7 +10,7 @@
         <h2>Search for a Ticker to continue</h2>
       </div>
       <v-card class="v-card" v-if="currentSearch">
-        <v-tabs v-model="tab" bg-color="error">
+        <v-tabs v-model="tab" bg-color="error" align-tabs="center">
           <v-tab value="summary">Summary</v-tab>
           <v-tab value="price">Price</v-tab>
           <v-tab value="articles">Articles</v-tab>
