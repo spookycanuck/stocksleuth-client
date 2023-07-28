@@ -5,6 +5,9 @@ export default {
     searchList(state) {
         return state.searchList;
     },
+    savedList(state) {
+        return state.savedList;
+    },
     currentSearch(state) {
         return state.currentSearch;
     },
