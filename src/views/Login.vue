@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <v-card elevation="4" tag="section" class="login">
+    <v-card elevation="4" tag="section" class="login fitVert">
       <v-card-title>
         <img class="logo img" :src="img" />
         <h3>Stock Sleuth Login</h3>
@@ -110,28 +110,13 @@ export default {
   justify-content: center;
   margin-top: 200px;
 }
-.v-card {
-  border-radius: 4px;
-  width: 500px;
-}
 .login h3,
 p {
   text-align: center;
 }
-.login .field {
-  margin-top: 10px;
-}
 .v-btn {
   width: 200px;
   border-radius: 4px;
-}
-.login button:hover {
-  color: whitesmoke;
-  background-color: rgb(134, 151, 156);
-}
-.fpw,
-.signUp {
-  font-size: 12px;
 }
 .fail {
   font-size: 16px;

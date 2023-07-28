@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-table>
+    <v-table class="vtable" v-if="search">
       <tr>
         <td>Articles</td>
         <td>{{ search.articles }}</td>
@@ -13,7 +13,7 @@
 export default {
   computed: {
     search() {
-      return this.$store.getters["searches/search"];
+      return this.$store.getters["searches/currentSearch"];
     },
   },
 };

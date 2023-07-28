@@ -20,44 +20,44 @@
   <v-expansion-panels style="max-width: 330px; margin: 10px 0px 0px 2.5%">
     <v-expansion-panel
       style="margin-top: 7px"
-      v-for="ticker in tickerDict"
-      :key="ticker"
+      v-for="search in allSearches"
+      :key="search"
     >
-      <v-expansion-panel-title> {{ ticker.id }}</v-expansion-panel-title>
+      <v-expansion-panel-title> {{ search.id }}</v-expansion-panel-title>
       <v-expansion-panel-text>
         <p>
           Name:
-          {{ ticker.name }}
+          {{ search.name }}
         </p>
         <p>
           Current Price:
-          {{ ticker.current }}
+          {{ search.current }}
         </p>
         <p>
           24hr High:
-          {{ ticker.priceHigh }}
+          {{ search.priceHigh }}
         </p>
         <p>
           24hr Low:
-          {{ ticker.priceLow }}
+          {{ search.priceLow }}
         </p>
         <v-divider />
         <div style="display: flex; margin-top: 10px">
           <v-list-item
             prepend-icon="mdi-close-thick"
-            @click="deleteTicker(ticker)"
+            @click="deleteTicker(search)"
           ></v-list-item>
           <v-spacer />
           <v-list-item
             prepend-icon="mdi-chart-line"
-            @click="graphTicker(ticker)"
+            @click="graphTicker(search)"
           ></v-list-item>
         </div>
       </v-expansion-panel-text>
     </v-expansion-panel>
   </v-expansion-panels>
 
-  <div style="margin-top: 17px" v-if="tickerDict.length > 0">
+  <div style="margin-top: 17px" v-if="allSearches.length > 0">
     <v-divider />
     <div class="clear">
       <v-btn class="clear-btn" @click="clearList"> Clear List </v-btn>
@@ -66,94 +66,57 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 
 export default {
   name: "search",
   data: () => ({
     ticker: "",
-    name: "**TEST**",
-    currentPrice: 6969,
-    recentHigh: 420.69,
-    recentLow: 69.42,
-    tickerDict: [],
+    searchList: [],
     validSearch: true,
     inList: false,
   }),
   methods: {
-    async search() {
+    search() {
       /*
         Checks conditions & populates side bar with searches. Currently only test
         data exists. API calls should call back to searches/actions.js
       */
-
-      if (this.ticker == null || this.ticker.length == 0) {
+      let ticker = this.ticker.replace(/\s/g, "");
+      if (ticker === null || ticker.length === 0) {
         this.inList = false;
         this.validSearch = false;
-      } else if (this.ticker.length > 0) {
+      } else if (ticker.length > 0) {
         this.validSearch = true;
         this.inList = false;
-        var target = this.tickerDict.find(
-          (x) => x.id === this.ticker.toUpperCase()
+        var target = this.allSearches.find(
+          (x) => x.id === ticker.toUpperCase()
         );
         if (target) {
           this.inList = true;
-          return;
+        } else {
+          this.$store.dispatch("searches/newSearch", ticker);
         }
       }
-      this.currentSearch(); // can be removed later
-    },
-    async currentSearch() {
-      // -------------------------------
-      // currentSearch actions
-      let payload = {};
-      let res = await axios.get(
-        `http://localhost:3000/tickers?ticker=${this.ticker.toUpperCase()}`
-      );
-      if (res.status == 200 && res.data.length > 0) {
-        let x = res.data[0];
-        payload = {
-          id: this.ticker.toUpperCase(),
-          name: x.name,
-          current: x.currentPrice,
-          priceHigh: x.recentHigh,
-          priceLow: x.recentLow,
-        };
-      }
-      // -------------------------------
-      else {
-        // poor error handling for testing. Please remove when smart
-        let x = this;
-        payload = {
-          id: this.ticker.toUpperCase(),
-          name: x.name,
-          current: x.currentPrice,
-          priceHigh: x.recentHigh,
-          priceLow: x.recentLow,
-        };
-      }
-      this.searchList(payload);
-    },
-    searchList(payload) {
-      // -------------------------------
-      // searchList actions
-      this.tickerDict.push(payload);
       this.ticker = "";
-      // -------------------------------
     },
     deleteTicker(currentTicker) {
-      let x = this.tickerDict.indexOf(currentTicker);
-      this.tickerDict.splice(x, 1);
+      this.$store.dispatch("searches/removeOne", currentTicker)
     },
     graphTicker(currentTicker) {
-      console.log("graph " + currentTicker.id);
-      console.log(currentTicker);
+      this.$store.dispatch("searches/currentSearch", currentTicker)
     },
     clearList() {
-      this.tickerDict = [];
-      this.validSearch = true;
-      this.inList = false;
-      this.ticker = "";
+      this.$store.dispatch("searches/clearSearches");
+    },
+  },
+  computed: {
+    allSearches() {
+      //populates/replaces searchList in data. DOM pulls from this computed figure.
+      const searches = this.$store.getters["searches/searchList"];
+      // console.log("allSearches");
+      // console.log(searches);
+      return searches;
     },
   },
 };
@@ -200,6 +163,7 @@ export default {
   margin-top: 15px;
   display: flex;
   justify-content: center;
+  margin-bottom: 15px;
 }
 .clear-btn:hover {
   background-color: darkred;
