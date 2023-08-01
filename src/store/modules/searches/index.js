@@ -9,6 +9,7 @@ export default {
             ticker: null,
             currentSearch: null,
             searchList: [],
+            savedList: [],
         }
     },
     actions,

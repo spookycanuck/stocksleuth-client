@@ -41,7 +41,16 @@ export default {
   clearSearches(context) {
     context.commit("clearSearches");
   },
+  clearSaved(context) {
+    context.commit("clearSaved");
+  },
+  saveSearches(context) {
+    context.commit("saveSearches");
+  },
   removeOne(context, payload) {
     context.commit("removeOne", payload);
+  },
+  removeSaved(context, payload) {
+    context.commit("removeSaved", payload);
   },
 };

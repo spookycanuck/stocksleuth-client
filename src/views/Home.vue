@@ -5,8 +5,12 @@
     </div>
     <div class="home">
       <h2 style="display: auto">Welcome Back, {{ name }}</h2>
-      <v-card width="80vw" height="80vh" style="background-color: whitesmoke; margin: auto;">
-        <v-tabs v-model="tab" bg-color="error">
+      <div v-if="!currentSearch" class="noChart">
+        <h2>No recent charts to display!</h2>
+        <h2>Search for a Ticker to continue</h2>
+      </div>
+      <v-card class="v-card" v-if="currentSearch">
+        <v-tabs v-model="tab" bg-color="error" align-tabs="center">
           <v-tab value="summary">Summary</v-tab>
           <v-tab value="price">Price</v-tab>
           <v-tab value="articles">Articles</v-tab>
@@ -25,9 +29,6 @@
           </v-window>
         </v-card-text>
         <v-divider></v-divider>
-        <v-card-actions>
-          <v-btn block @click="search">Search</v-btn>
-        </v-card-actions>
       </v-card>
     </div>
   </div>
@@ -40,8 +41,18 @@
   height: 100%;
   width: 85%;
 }
+.v-card {
+  background-color: whitesmoke;
+  margin: auto;
+  width: 80vw;
+  height: 80vh;
+}
 .search {
   background-color: whitesmoke;
+}
+.noChart {
+margin-top:10%
+
 }
 </style>
 
@@ -68,33 +79,11 @@ export default {
     auth() {
       return this.$store.getters["auth/auth"];
     },
+    currentSearch() {
+      return this.$store.getters["searches/currentSearch"]
+    }
   },
   methods: {
-    search() {
-      var a = this.$store._state.data.searches.search.ticker; // This seems like the wrong way to call on a state
-      var payload = {};
-      var x = {
-        ticker: "MSFT",
-        price: "$300",
-        articles: "goodbye world",
-      };
-      var y = {
-        ticker: "AAPL",
-        price: "$157",
-        articles: "hello world",
-      };
-
-      if (a == "MSFT") {
-        payload = y;
-      } else {
-        payload = x;
-      }
-
-      // console.log(a)
-      // console.log(payload)
-
-      this.$store.dispatch("searches/newSearch", payload);
-    },
     async loadData() {
       // If user info is not in local storage, user will not be
       //   able to go to this page & redirect to sign up
