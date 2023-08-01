@@ -1,6 +1,14 @@
 <template>
   <div>
-    <h1 v-if="saved.length > 0 && search.id === saved[0].id">There are no saved graphs, either</h1>
+    <h1
+      v-if="
+        saved.length > 0 &&
+        saved.find((x) => x.id === search.id) &&
+        searchList.length === 0
+      "
+    >
+      There are no saved graphs, either
+    </h1>
     <h2>This is where my {{ search.id }} graph would go</h2>
     <img class="dinkleImg" :src="img" />
   </div>
@@ -18,15 +26,22 @@ export default {
     saved() {
       return this.$store.getters["searches/savedList"];
     },
+    searchList() {
+      return this.$store.getters["searches/searchList"];
+    },
   },
 };
 </script>
 
 <style scoped>
-h2, h1 {
+h2 {
   text-align: center;
-  margin-top: 10%;
+  margin-top: 3%;
   margin-bottom: 15px;
+}
+h1 {
+  text-align: center;
+  margin-top: 3%;
 }
 .dinkleImg {
   display: block;
