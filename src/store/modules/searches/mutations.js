@@ -20,12 +20,16 @@ export default {
   },
   clearSaved(state) {
     state.savedList = [];
+    if (state.searchList.length > 0) {
+      state.currentSearch = state.searchList[0];
+    } else {
+      state.currentSearch = null;
+    }
     localStorage.removeItem("savedList");
   },
   saveSearches(state) {
     localStorage.setItem("savedList", JSON.stringify(state.searchList));
     state.savedList = [...state.searchList];
-    console.log(state.savedList);
     state.searchList = [];
     localStorage.removeItem("searchList");
   },
