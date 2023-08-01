@@ -4,19 +4,23 @@
       <Search />
     </div>
     <div class="home">
-      <h2 style="display: auto">Welcome Back, {{ name }}</h2>
-      <div v-if="!currentSearch" class="noChart">
+      <h2 style="display: auto; margin-top:30px">Welcome Back, {{ name }}</h2>
+      <div v-if="!currentSearch" class="noChart" style="margin-bottom: 34%;">
         <h2>No recent charts to display!</h2>
         <h2>Search for a Ticker to continue</h2>
       </div>
       <v-card class="v-card" v-if="currentSearch">
         <v-tabs v-model="tab" bg-color="error" align-tabs="center">
+          <v-tab value="graph">Graph</v-tab>
           <v-tab value="summary">Summary</v-tab>
           <v-tab value="price">Price</v-tab>
           <v-tab value="articles">Articles</v-tab>
         </v-tabs>
         <v-card-text>
           <v-window v-model="tab">
+            <v-window-item value="graph">
+              <Graph />
+            </v-window-item>
             <v-window-item value="summary">
               <Summary />
             </v-window-item>
@@ -61,6 +65,7 @@ import Summary from "@/components/Summary.vue";
 import Price from "@/components/Price.vue";
 import Articles from "@/components/Articles.vue";
 import Search from "@/components/Search.vue";
+import Graph from "@/components/Graph.vue"
 
 export default {
   components: {
@@ -68,11 +73,12 @@ export default {
     Price,
     Articles,
     Search,
+    Graph
   },
   data() {
     return {
       name: "",
-      tab: "summary",
+      tab: "graph",
     };
   },
   computed: {
