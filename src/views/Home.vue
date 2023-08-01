@@ -38,28 +38,6 @@
   </div>
 </template>
 
-<style scoped>
-.home {
-  display: block;
-  margin: auto;
-  height: 100%;
-  width: 85%;
-}
-.v-card {
-  background-color: whitesmoke;
-  margin: auto;
-  width: 80vw;
-  height: 80vh;
-}
-.search {
-  background-color: whitesmoke;
-}
-.noChart {
-margin-top:10%
-
-}
-</style>
-
 <script>
 import Summary from "@/components/Summary.vue";
 import Price from "@/components/Price.vue";
@@ -105,3 +83,25 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.home {
+  display: block;
+  margin: auto;
+  height: 100%;
+  width: 85%;
+}
+.v-card {
+  background-color: whitesmoke;
+  margin: auto;
+  width: 80vw;
+  height: 80vh;
+}
+.search {
+  background-color: whitesmoke;
+}
+.noChart {
+margin-top:10%
+
+}
+</style>
