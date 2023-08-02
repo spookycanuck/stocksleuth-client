@@ -1,26 +1,43 @@
 <template>
-  <h2>Account Page for {{ name }}</h2>
+  <div class="container">
+    <v-card elevation="4" tag="section" class="signup fitVert">
+      <v-card-title>
+        <img class="logo img" :src="img" />
+        <h3>Account Page for {{ user.firstName }}</h3>
+      </v-card-title>
+      <v-divider></v-divider>
+    </v-card>
+  </div>
 </template>
 
 <script>
 export default {
-  name: "Account",
   data() {
     return {
-      name: "",
+      img: require("@/assets/logo.png"),
     };
   },
-  methods: {
-    loadData() {
-      let user = localStorage.getItem('user-info')
-      if (user) {
-        let data = JSON.parse(localStorage.getItem("user-info"));
-        this.name = data.charAt(0).toUpperCase() + data.slice(1);
-      }
+  computed: {
+    user() {
+      return this.$store.getters["auth/user"];
     },
-  },
-  mounted() {
-    this.loadData();
   },
 };
 </script>
+
+<style scoped>
+.container {
+  display: flex;
+  justify-content: center;
+  margin-top: 150px;
+}
+.signup h3,
+p {
+  text-align: center;
+}
+.v-btn {
+  width: 200px;
+  border-radius: 4px;
+  margin: auto;
+}
+</style>

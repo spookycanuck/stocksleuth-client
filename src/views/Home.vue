@@ -4,7 +4,7 @@
       <Search />
     </div>
     <div class="home">
-      <h2 style="display: auto; margin-top:30px">Welcome Back, {{ name }}</h2>
+      <h2 style="display: auto; margin-top:30px">Welcome Back, {{ user.firstName }}</h2>
       <div v-if="!currentSearch" class="noChart" style="margin-bottom: 34%;">
         <h2>No recent charts to display!</h2>
         <h2>Search for a Ticker to continue</h2>
@@ -55,7 +55,6 @@ export default {
   },
   data() {
     return {
-      name: "",
       tab: "graph",
     };
   },
@@ -67,19 +66,10 @@ export default {
       return this.$store.getters["searches/currentSearch"]
     }
   },
-  methods: {
-    async loadData() {
-      // If user info is not in local storage, user will not be
-      //   able to go to this page & redirect to sign up
-      let user = localStorage.getItem("user-info");
-      if (user) {
-        let data = JSON.parse(localStorage.getItem("user-info"));
-        this.name = data.charAt(0).toUpperCase() + data.slice(1);
-      }
+  computed: {
+    user() {
+      return this.$store.getters["auth/user"];
     },
-  },
-  async mounted() {
-    this.loadData();
   },
 };
 </script>
