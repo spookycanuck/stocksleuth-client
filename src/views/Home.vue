@@ -55,7 +55,7 @@ export default {
   },
   data() {
     return {
-      tab: "graph",
+      tab: "summary",
     };
   },
   computed: {
@@ -64,9 +64,7 @@ export default {
     },
     currentSearch() {
       return this.$store.getters["searches/currentSearch"]
-    }
-  },
-  computed: {
+    },
     user() {
       return this.$store.getters["auth/user"];
     },
@@ -80,6 +78,12 @@ export default {
   margin: auto;
   height: 100%;
   width: 85%;
+}
+.container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  background-color: lightgray;
 }
 .v-card {
   background-color: whitesmoke;
