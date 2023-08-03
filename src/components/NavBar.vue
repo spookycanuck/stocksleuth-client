@@ -40,9 +40,9 @@
         prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg"
       >
         <v-list-item-title>{{ user.firstName }} {{ user.lastName }}</v-list-item-title>
-        <v-list-item-content class="scroll">
+        <v-list-item-subtitle class="scroll">
           {{ user.email }}
-        </v-list-item-content>
+        </v-list-item-subtitle>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
@@ -75,7 +75,6 @@ export default {
 
 <style scoped>
 .scroll {
-  color: gray;
   display: inline-block;
   overflow: hidden;
   text-overflow: ellipsis;
