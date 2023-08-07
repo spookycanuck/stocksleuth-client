@@ -5,4 +5,7 @@ export default {
     logout(context) {
         context.commit('setAuth', false)
     },
+    user(context, payload) {
+        context.commit("setUser", payload);
+    }
 }

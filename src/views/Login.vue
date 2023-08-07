@@ -75,8 +75,9 @@ export default {
       );
 
       if (res.status == 200 && res.data.length > 0) {
-        localStorage.setItem("user-info", JSON.stringify(res.data[0].firstName));
-        this.$store.dispatch("auth/login")
+        let user = res.data[0]
+        this.$store.dispatch("auth/login");
+        this.$store.dispatch('auth/user', user)
         this.$router.push({ name: "Home" });
         // console.log('auth state: ', this.$store.getters['auth/auth'])
         this.loginFail = false;

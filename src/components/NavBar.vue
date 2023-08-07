@@ -8,12 +8,17 @@
       >
       </v-list-item>
       <v-list-item
-      v-if="!auth"
+        v-if="!auth"
         prepend-icon="mdi-login"
         title="Login"
         @click="$router.push('login')"
       ></v-list-item>
-      <v-list-item v-if="auth" prepend-icon="mdi-account" title="Account" @click="$router.push('account')">
+      <v-list-item
+        v-if="auth"
+        prepend-icon="mdi-account"
+        title="Account"
+        @click="$router.push('account')"
+      >
       </v-list-item>
       <v-list-item
         v-if="auth"
@@ -31,11 +36,13 @@
     <v-divider />
     <v-list>
       <v-list-item
-      v-if="auth"
+        v-if="auth"
         prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg"
-        title="Sandra Adams"
-        subtitle="sandra_a88@gmailcom"
       >
+        <v-list-item-title>{{ user.firstName }} {{ user.lastName }}</v-list-item-title>
+        <v-list-item-subtitle class="scroll">
+          {{ user.email }}
+        </v-list-item-subtitle>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
@@ -45,8 +52,8 @@
 export default {
   methods: {
     logout() {
-      let user = this.$store.getters["auth/auth"];
-      if (user) {
+      let auth = this.$store.getters["auth/auth"];
+      if (auth) {
         localStorage.clear();
         this.$router.push({ name: "Login" });
         this.$store.dispatch("auth/logout");
@@ -59,6 +66,23 @@ export default {
     auth() {
       return this.$store.getters["auth/auth"];
     },
+    user() {
+      return this.$store.getters["auth/user"];
+    },
   },
 };
 </script>
+
+<style scoped>
+.scroll {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transform: translateX(0);
+  transition: 1s;
+}
+.scroll:hover {
+  transform: translateX(calc(255px - 150%));
+  transition: 3s;
+}
+</style>

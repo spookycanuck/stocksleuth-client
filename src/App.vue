@@ -122,7 +122,6 @@ body {
   margin: 0;
 }
 .container {
-  display: flex;
   height: 100%;
   width: 100%;
   background-color: lightgray;
