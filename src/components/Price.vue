@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h3>Most Recent Price Data for {{ search.id }}</h3><br />
+    <h3>Most Recent Price Data for {{ search.id }}</h3>
+    <br />
     <v-table class="vtable" v-if="search">
       <tr>
         <td>Latest Data</td>
@@ -8,31 +9,33 @@
       </tr>
       <tr>
         <td>24hr Low Price</td>
-        <td>{{ search.low }}</td>
+        <td>${{ search.low }}</td>
       </tr>
       <tr>
         <td>24hr High Price</td>
-        <td>{{ search.high }}</td>
+        <td>${{ search.high }}</td>
       </tr>
       <tr>
         <td>24hr Change</td>
-        <td>{{ search.change }}</td>
+        <td :style="[search.change > 0 ? { 'color': 'black' } : { 'color': 'red' }]">
+          {{ search.change }}
+        </td>
       </tr>
       <tr>
         <td>Latest Close</td>
-        <td>{{ search.close }}</td>
+        <td>${{ search.close }}</td>
       </tr>
       <tr>
         <td>Adjusted Close</td>
-        <td>{{ search.adjClose }}</td>
+        <td>${{ search.adjClose }}</td>
       </tr>
       <tr>
         <td>Change Over Time</td>
-        <td>{{ search.changeOverTime }}</td>
+        <td :style="[search.changeOverTime > 0 ? { 'color': 'black' } : { 'color': 'red' }]">{{ search.changeOverTime }}</td>
       </tr>
       <tr>
         <td>Change Rate</td>
-        <td>{{ search.changePercent }}</td>
+        <td :style="[search.changeRate > 0 ? { 'color': 'black' } : { 'color': 'red' }]">{{ search.changePercent }}</td>
       </tr>
       <tr>
         <td>Volume</td>
@@ -44,7 +47,7 @@
       </tr>
       <tr>
         <td>Volume-Weighted Average Price</td>
-        <td>{{ search.vwap }}</td>
+        <td>${{ search.vwap }}</td>
       </tr>
     </v-table>
   </div>
