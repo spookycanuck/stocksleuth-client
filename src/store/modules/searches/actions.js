@@ -31,7 +31,7 @@ export default {
           close: x.close,
           date: x.date,
           high: x.high,
-          label: x.label,
+          label: x.label.slice(0, -2) + "20" + x.label.slice(-2),
           low: x.low,
           open: x.open,
           unadjustedVolume: x.unadjustedVolume,
