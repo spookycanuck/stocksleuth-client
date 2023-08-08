@@ -10,16 +10,16 @@ export default {
 
     //let res = await axios.get(`http://localhost:3000/tickers?ticker=${ticker}`);
     try {
-      res = await axios.get(
-        `http://localhost:5000/api/v1/price?ticker=${ticker}`
-      ).catch((e) => {
-        // console.log(e)
-        context.commit("failed", true)
-        return;
-      });
+      res = await axios
+        .get(`http://localhost:5000/api/v1/price?ticker=${ticker}`)
+        .catch((e) => {
+          // console.log(e)
+          context.commit("failed", true);
+          return;
+        });
       if (res.status == 200 && res.data.length > 0) {
         let x = res.data[0];
-        graphData = res.data
+        graphData = res.data;
         // TODO: Map entire ticker history -- X will only return the latest date
         //    graphData is the entire API data call, and sends it to another action
         recentData = {
@@ -41,7 +41,7 @@ export default {
       }
       context.commit("addSearch", recentData);
       context.dispatch("buildGraph", graphData);
-      context.commit("failed", null)
+      context.commit("failed", null);
       if (context.getters.currentSearch == null) {
         context.commit("currentSearch", recentData);
       }
@@ -53,8 +53,8 @@ export default {
     // TODO: finish building the graph
     //    buildGraph takes the API data from newSearch and should structure the data
     //    appropriately for the graph in Graph.vue
-    context.commit("buildGraph", payload)
-    console.log("buildGraph: ", payload)
+    context.commit("buildGraph", payload);
+    console.log("buildGraph: ", payload);
   },
   currentSearch(context, payload) {
     context.commit("currentSearch", payload);

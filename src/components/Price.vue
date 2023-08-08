@@ -17,7 +17,9 @@
       </tr>
       <tr>
         <td>24hr Change</td>
-        <td :style="[search.change > 0 ? { 'color': 'black' } : { 'color': 'red' }]">
+        <td
+          :style="[search.change > 0 ? { color: 'black' } : { color: 'red' }]"
+        >
           {{ search.change }}
         </td>
       </tr>
@@ -31,11 +33,23 @@
       </tr>
       <tr>
         <td>Change Over Time</td>
-        <td :style="[search.changeOverTime > 0 ? { 'color': 'black' } : { 'color': 'red' }]">{{ search.changeOverTime }}</td>
+        <td
+          :style="[
+            search.changeOverTime > 0 ? { color: 'black' } : { color: 'red' },
+          ]"
+        >
+          {{ search.changeOverTime }}
+        </td>
       </tr>
       <tr>
         <td>Change Rate</td>
-        <td :style="[search.changeRate > 0 ? { 'color': 'black' } : { 'color': 'red' }]">{{ search.changePercent }}</td>
+        <td
+          :style="[
+            search.changeRate > 0 ? { color: 'black' } : { color: 'red' },
+          ]"
+        >
+          {{ search.changePercent }}
+        </td>
       </tr>
       <tr>
         <td>Volume</td>
