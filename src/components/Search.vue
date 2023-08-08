@@ -29,6 +29,15 @@
       <v-window-item value="saved">
         <SavedSearches />
       </v-window-item>
+      <v-progress-circular
+        v-if="isLoading"
+        style="margin: auto"
+        color="error"
+        model-value="20"
+        :size="45"
+        :width="7"
+        indeterminate
+      ></v-progress-circular>
     </v-window>
   </v-card-text>
 </template>
@@ -49,6 +58,7 @@ export default {
     searchList: [],
     validSearch: true,
     inList: false,
+    isLoading: false,
   }),
   methods: {
     async search() {
@@ -65,18 +75,19 @@ export default {
         this.inList = false;
         var target = this.allSearches.find(
           (x) => x.id === ticker.toUpperCase()
-        )
+        );
         if (target) {
           this.inList = true;
         } else {
+          this.isLoading = true;
           await this.$store.dispatch("searches/newSearch", ticker);
+          this.isLoading = false;
         }
       }
       this.ticker = "";
       if (this.searchFail === true) {
         this.validSearch = false;
-      }
-      else {
+      } else {
         this.validSearch = true;
       }
     },
@@ -88,7 +99,7 @@ export default {
     },
     searchFail() {
       const failed = this.$store.getters["searches/failed"];
-      return failed
+      return failed;
     },
   },
 };
