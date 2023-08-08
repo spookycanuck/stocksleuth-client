@@ -51,7 +51,7 @@ export default {
     inList: false,
   }),
   methods: {
-    search() {
+    async search() {
       /*
         Checks conditions & populates side bar with searches. Currently only test
         data exists. API calls should call back to searches/actions.js
@@ -65,20 +65,30 @@ export default {
         this.inList = false;
         var target = this.allSearches.find(
           (x) => x.id === ticker.toUpperCase()
-        );
+        )
         if (target) {
           this.inList = true;
         } else {
-          this.$store.dispatch("searches/newSearch", ticker);
+          await this.$store.dispatch("searches/newSearch", ticker);
         }
       }
       this.ticker = "";
+      if (this.searchFail === true) {
+        this.validSearch = false;
+      }
+      else {
+        this.validSearch = true;
+      }
     },
   },
   computed: {
     allSearches() {
       const searches = this.$store.getters["searches/searchList"];
       return searches;
+    },
+    searchFail() {
+      const failed = this.$store.getters["searches/failed"];
+      return failed
     },
   },
 };

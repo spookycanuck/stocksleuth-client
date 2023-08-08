@@ -47,4 +47,7 @@ export default {
     }
     localStorage.setItem("savedList", JSON.stringify(state.savedList));
   },
+  failed(state, payload) {
+    state.searchFail = payload
+  }
 };
