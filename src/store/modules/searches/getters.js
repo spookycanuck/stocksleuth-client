@@ -11,4 +11,7 @@ export default {
     currentSearch(state) {
         return state.currentSearch;
     },
+    failed(state) {
+        return state.searchFail;
+    }
 }
