@@ -1,9 +1,10 @@
 <template>
   <div>
+    <h3>Recent Articles about {{ search.id }}</h3><br />
     <v-table class="vtable" v-if="search">
       <tr>
         <td>Articles</td>
-        <td>{{ search.articles }}</td>
+        <td>No Articles Available</td>
       </tr>
     </v-table>
   </div>

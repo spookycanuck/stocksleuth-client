@@ -9,20 +9,20 @@
       <v-expansion-panel-title>{{ search.id }}</v-expansion-panel-title>
       <v-expansion-panel-text>
         <p>
-          Name:
-          {{ search.name }}
+          Date:
+          {{ search.date }}
         </p>
         <p>
           Current Price:
-          {{ search.current }}
+          {{ search.close }}
         </p>
         <p>
           24hr High:
-          {{ search.priceHigh }}
+          {{ search.high }}
         </p>
         <p>
           24hr Low:
-          {{ search.priceLow }}
+          {{ search.low }}
         </p>
         <v-divider />
         <div style="display: flex; margin-top: 10px">
