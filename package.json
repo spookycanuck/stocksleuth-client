@@ -12,6 +12,7 @@
     "@fortawesome/vue-fontawesome": "^2.0.10",
     "@mdi/font": "5.9.55",
     "axios": "^1.4.0",
+    "plotly.js-dist-min": "^2.25.1",
     "roboto-fontface": "*",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
