@@ -11,6 +11,9 @@ export default {
     currentSearch(state) {
         return state.currentSearch;
     },
+    graphData(state) {
+        return state.graphData;
+    },
     failed(state) {
         return state.searchFail;
     }

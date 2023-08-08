@@ -7,6 +7,9 @@ export default {
     state.currentSearch = payload
     localStorage.setItem("searchList", JSON.stringify(state.searchList));
   },
+  buildGraph(state, payload) {
+    state.graphData.push(payload);
+  },
   currentSearch(state, payload) {
     state.currentSearch = payload;
   },
