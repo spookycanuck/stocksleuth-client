@@ -8,6 +8,10 @@
         <td>{{ search.label }}</td>
       </tr>
       <tr>
+        <td>Price Range</td>
+        <td>{{ search.priceRange }}</td>
+      </tr>
+      <tr>
         <td>24hr Low Price</td>
         <td>${{ search.low }}</td>
       </tr>
@@ -20,7 +24,13 @@
         <td
           :style="[search.change > 0 ? { color: 'black' } : { color: 'red' }]"
         >
-          {{ search.change }}
+          {{
+            search.change > 0
+              ? "$" + search.change
+              : String(search.change).slice(0, 1) +
+                "$" +
+                String(search.change).slice(1)
+          }}
         </td>
       </tr>
       <tr>
@@ -45,15 +55,27 @@
         <td>Change Rate</td>
         <td
           :style="[
-            search.changeRate > 0 ? { color: 'black' } : { color: 'red' },
+            search.changePercent > 0 ? { color: 'black' } : { color: 'red' },
           ]"
         >
           {{ search.changePercent }}
         </td>
       </tr>
       <tr>
+        <td>Discounted Cash Flow</td>
+        <td>{{ search.dcf }}</td>
+      </tr>
+      <tr>
+        <td>Discounted Cash Flow Differential</td>
+        <td>{{ search.dcfDiff }}</td>
+      </tr>
+      <tr>
         <td>Volume</td>
         <td>{{ search.volume }}</td>
+      </tr>
+      <tr>
+        <td>Volume Average</td>
+        <td>{{ search.volAvg }}</td>
       </tr>
       <tr>
         <td>Unadjusted Volume</td>
@@ -62,6 +84,18 @@
       <tr>
         <td>Volume-Weighted Average Price</td>
         <td>${{ search.vwap }}</td>
+      </tr>
+      <tr>
+        <td>Last Dividend</td>
+        <td>${{ search.lastDiv }}</td>
+      </tr>
+      <tr>
+        <td>Beta</td>
+        <td>{{ search.beta }}</td>
+      </tr>
+      <tr>
+        <td>Currently Trading?</td>
+        <td>{{ search.isTrading == true ? "Yes" : "No" }}</td>
       </tr>
     </v-table>
   </div>

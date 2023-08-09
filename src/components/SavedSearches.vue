@@ -9,8 +9,8 @@
       <v-expansion-panel-title>{{ search.id }}</v-expansion-panel-title>
       <v-expansion-panel-text>
         <p>
-          Date:
-          {{ search.date }}
+          Name:
+          {{ search.name }}
         </p>
         <p>
           Current Price:
