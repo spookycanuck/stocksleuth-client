@@ -9,7 +9,7 @@
         <h2>No recent charts to display!</h2>
         <h2>Search for a Ticker to continue</h2>
       </div>
-      <v-card class="v-card" v-if="currentSearch">
+      <v-card class="v-card overflow-auto" v-if="currentSearch">
         <v-tabs v-model="tab" bg-color="error" align-tabs="center">
           <v-tab value="graph">Graph</v-tab>
           <v-tab value="summary">Summary</v-tab>
