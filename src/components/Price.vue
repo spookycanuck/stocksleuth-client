@@ -4,97 +4,123 @@
     <br />
     <v-table class="vtable" v-if="search">
       <tr>
-        <td>Latest Data</td>
+        <th>Latest Data</th>
         <td>{{ search.label }}</td>
       </tr>
       <tr>
-        <td>Price Range</td>
+        <th>Latest Close</th>
+        <td>${{ search.close }}</td>
+      </tr>
+      <tr>
+        <th>Adjusted Close</th>
+        <td>${{ search.adjClose }}</td>
+      </tr>
+      <tr>
+        <th>Price Range (52 wk)</th>
         <td>{{ search.priceRange }}</td>
       </tr>
       <tr>
-        <td>24hr Low Price</td>
-        <td>${{ search.low }}</td>
-      </tr>
-      <tr>
-        <td>24hr High Price</td>
+        <th>High Price (24 hr)</th>
         <td>${{ search.high }}</td>
       </tr>
       <tr>
-        <td>24hr Change</td>
+        <th>Low Price (24 hr)</th>
+        <td>${{ search.low }}</td>
+      </tr>
+      <tr>
+        <th>24hr Change ($)</th>
         <td
           :style="[search.change > 0 ? { color: 'black' } : { color: 'red' }]"
         >
           {{
             search.change > 0
               ? "$" + search.change
-              : String(search.change).slice(0, 1) +
-                "$" +
-                String(search.change).slice(1)
+              : "(" + String(search.change).slice(1) + ")"
           }}
+          <!-- 
+              : String(search.change).slice(0, 1) +
+               "$" +
+               String(search.change).slice(1)               
+            -->
         </td>
       </tr>
       <tr>
-        <td>Latest Close</td>
-        <td>${{ search.close }}</td>
-      </tr>
-      <tr>
-        <td>Adjusted Close</td>
-        <td>${{ search.adjClose }}</td>
-      </tr>
-      <tr>
-        <td>Change Over Time</td>
+        <th>Change Over Time (%)</th>
         <td
           :style="[
             search.changeOverTime > 0 ? { color: 'black' } : { color: 'red' },
           ]"
         >
-          {{ search.changeOverTime }}
+          {{
+            search.changeOverTime > 0
+              ? "$" + search.changeOverTime
+              : "(" + String(search.changeOverTime).slice(1) + ")"
+          }}
         </td>
       </tr>
       <tr>
-        <td>Change Rate</td>
+        <th>Change Rate (%)</th>
         <td
           :style="[
             search.changePercent > 0 ? { color: 'black' } : { color: 'red' },
           ]"
         >
-          {{ search.changePercent }}
+          {{
+            search.changePercent > 0
+              ? search.changeOverTime
+              : "(" + String(search.changePercent).slice(1) + ")"
+          }}
         </td>
       </tr>
       <tr>
-        <td>Discounted Cash Flow</td>
+        <th>Discounted Cash Flow</th>
         <td>{{ search.dcf }}</td>
       </tr>
       <tr>
-        <td>Discounted Cash Flow Differential</td>
-        <td>{{ search.dcfDiff }}</td>
+        <th>Discounted Cash Flow Diff</th>
+        <td
+          :style="[
+            search.dcfDiff > 0 ? { color: 'black' } : { color: 'red' },
+          ]"
+        >
+          ${{ search.dcfDiff }}
+        </td>
       </tr>
       <tr>
-        <td>Volume</td>
-        <td>{{ search.volume }}</td>
+        <th>Volume</th>
+        <td>
+          {{ String(search.volume).replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}
+        </td>
       </tr>
       <tr>
-        <td>Volume Average</td>
+        <th>Unadjusted Volume</th>
+        <td>
+          {{
+            String(search.unadjustedVolume).replace(
+              /\B(?=(\d{3})+(?!\d))/g,
+              ","
+            )
+          }}
+        </td>
+      </tr>
+      <tr>
+        <th>Volume Average</th>
         <td>{{ search.volAvg }}</td>
       </tr>
       <tr>
-        <td>Unadjusted Volume</td>
-        <td>{{ search.unadjustedVolume }}</td>
-      </tr>
-      <tr>
-        <td>Volume-Weighted Average Price</td>
+        <th>Volume-Weighted Average Price</th>
         <td>${{ search.vwap }}</td>
       </tr>
       <tr>
-        <td>Last Dividend</td>
+        <th>Last Dividend</th>
         <td>${{ search.lastDiv }}</td>
       </tr>
       <tr>
-        <td>Beta</td>
+        <th>Beta</th>
         <td>{{ search.beta }}</td>
       </tr>
       <tr>
-        <td>Currently Trading?</td>
+        <th>Currently Trading?</th>
         <td>{{ search.isTrading == true ? "Yes" : "No" }}</td>
       </tr>
     </v-table>

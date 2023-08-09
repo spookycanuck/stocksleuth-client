@@ -1,86 +1,87 @@
 <template>
   <div>
     <h3>Summary Data for {{ search.id }}</h3><br />
+    <img class="companyLogo" :src="search.image" />
     <v-table class="vtable" v-if="search">
       <tr>
-        <td>Ticker</td>
+        <th>Ticker</th>
         <td>{{ search.id }}</td>
       </tr>
       <tr>
-        <td>Company Name</td>
+        <th>Company Name</th>
         <td >{{ search.name }}</td>
       </tr>
       <tr>
-        <td>Market Cap</td>
+        <th>Market Cap</th>
         <td >{{ search.mktCap }}</td>
       </tr>
       <tr>
-        <td>CEO</td>
+        <th>CEO</th>
         <td >{{ search.ceo }}</td>
       </tr>
       <tr>
-        <td>Address</td>
+        <th>Address</th>
         <td >{{ search.address }}</td>
       </tr>
       <tr>
-        <td>City</td>
+        <th>City</th>
         <td >{{ search.name }}</td>
       </tr>
       <tr>
-        <td>State</td>
+        <th>State</th>
         <td >{{ search.state }}</td>
       </tr>
       <tr>
-        <td>Zip Code</td>
+        <th>Zip Code</th>
         <td >{{ search.zip }}</td>
       </tr>
       <tr>
-        <td>Country</td>
+        <th>Country</th>
         <td >{{ search.country }}</td>
       </tr>
       <tr>
-        <td>Phone</td>
+        <th>Phone</th>
         <td >{{ search.phone }}</td>
       </tr>
       <tr>
-        <td>Company Description</td>
-        <td >{{ search.description }}</td>
-      </tr>
-      <tr>
-        <td>CIK</td>
+        <th>CIK</th>
         <td >{{ search.cik }}</td>
       </tr>
       <tr>
-        <td>CUSIP</td>
+        <th>CUSIP</th>
         <td >{{ search.cusip }}</td>
       </tr>
       <tr>
-        <td>ISIN</td>
+        <th>ISIN</th>
         <td >{{ search.isin }}</td>
       </tr>
       <tr>
-        <td>Full Time Employees</td>
-        <td >{{ search.employees }}</td>
+        <th>Full Time Employees</th>
+        <td >{{ String(search.employees).replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}</td>
       </tr>
       <tr>
-        <td>Exchange</td>
+        <th>Exchange</th>
         <td >{{ search.exchange }} ({{ search.exchangeAbbv }})</td>
       </tr>
       <tr>
-        <td>Industry</td>
+        <th>Industry</th>
         <td >{{ search.industry }}</td>
       </tr>
       <tr>
-        <td>Sector</td>
+        <th>Sector</th>
         <td >{{ search.sector }}</td>
       </tr>
       <tr>
-        <td>IPO Date</td>
+        <th>IPO Date</th>
         <td >{{ search.ipoDate }}</td>
       </tr>
       <tr>
-        <td>Website</td>
+        <th>Website</th>
         <td>{{ search.website }}</td>
+      </tr>
+      <tr>
+        <th>Company Description</th>
+        <td >{{ search.description }}</td>
       </tr>
     </v-table>
   </div>
@@ -106,7 +107,23 @@ tr:nth-of-type(even) {
     /* 'teal lighten-5' basides on material design color */
     background-color: #e6f0ef;
 }
+td {
+  padding:7px;
+  min-width: 200px;
+}
+th {
+  padding:7px;
+  min-width: 175px;
+  max-width: 250px;
+}
 h3 {
   text-align: center;
+}
+.companyLogo {
+  max-width: 5%;
+  max-height: 3%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>
