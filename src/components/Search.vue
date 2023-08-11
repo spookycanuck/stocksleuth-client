@@ -101,6 +101,12 @@ export default {
       const failed = this.$store.getters["searches/failed"];
       return failed;
     },
+    stockList() {
+      return this.$store.getters["searches/stockList"][0].map(i => i.symbol)
+    },
+    // filteredSearch() {
+    //   return stockList[0].map(i => i.symbol)
+    // }
   },
 };
 </script>
