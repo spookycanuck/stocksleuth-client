@@ -4,8 +4,10 @@
       <Search />
     </div>
     <div class="home">
-      <h2 style="display: auto; margin-top:30px">Welcome Back, {{ user.firstName }}</h2>
-      <div v-if="!currentSearch" class="noChart" style="margin-bottom: 34%;">
+      <h2 style="display: auto; margin-top: 30px">
+        Welcome Back, {{ user.firstName }}
+      </h2>
+      <div v-if="!currentSearch" class="noChart" style="margin-bottom: 34%">
         <h2>No recent charts to display!</h2>
         <h2>Search for a Ticker to continue</h2>
       </div>
@@ -19,7 +21,7 @@
         <v-card-text>
           <v-window v-model="tab">
             <v-window-item value="graph">
-              <Graph />
+              <Graph :data="chartData" />
             </v-window-item>
             <v-window-item value="summary">
               <Summary />
@@ -32,7 +34,6 @@
             </v-window-item>
           </v-window>
         </v-card-text>
-        <v-divider></v-divider>
       </v-card>
     </div>
   </div>
@@ -43,7 +44,7 @@ import Summary from "@/components/Summary.vue";
 import Price from "@/components/Price.vue";
 import Articles from "@/components/Articles.vue";
 import Search from "@/components/Search.vue";
-import Graph from "@/components/Graph.vue"
+import Graph from "@/components/Graph.vue";
 
 export default {
   components: {
@@ -51,7 +52,7 @@ export default {
     Price,
     Articles,
     Search,
-    Graph
+    Graph,
   },
   data() {
     return {
@@ -63,7 +64,18 @@ export default {
       return this.$store.getters["auth/auth"];
     },
     currentSearch() {
-      return this.$store.getters["searches/currentSearch"]
+      return this.$store.getters["searches/currentSearch"];
+    },
+    chartData() {
+      if (this.currentSearch.data.length > 0) {
+        return [
+          {
+            x: this.currentSearch.data.map((d) => d.date),
+            y: this.currentSearch.data.map((d) => d.adjClose),
+            type: "scatter",
+          },
+        ];
+      }
     },
     user() {
       return this.$store.getters["auth/user"];
@@ -95,7 +107,6 @@ export default {
   background-color: whitesmoke;
 }
 .noChart {
-margin-top:10%
-
+  margin-top: 10%;
 }
 </style>
