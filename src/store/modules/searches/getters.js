@@ -8,6 +8,9 @@ export default {
     savedList(state) {
         return state.savedList;
     },
+    stockList(state) {
+        return state.stockList;
+    },
     currentSearch(state) {
         return state.currentSearch;
     },

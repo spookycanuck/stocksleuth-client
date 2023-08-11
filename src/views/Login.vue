@@ -78,6 +78,7 @@ export default {
         let user = res.data[0]
         this.$store.dispatch("auth/login");
         this.$store.dispatch('auth/user', user)
+        this.$store.dispatch('searches/getStockList')
         this.$router.push({ name: "Home" });
         // console.log('auth state: ', this.$store.getters['auth/auth'])
         this.loginFail = false;

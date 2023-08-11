@@ -10,6 +10,7 @@ export default {
             currentSearch: null,
             searchList: [],
             savedList: [],
+            stockList: [],
             graphData: [],
             searchFail: null
         }
