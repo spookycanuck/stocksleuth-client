@@ -54,7 +54,7 @@ export default {
     logout() {
       let auth = this.$store.getters["auth/auth"];
       if (auth) {
-        localStorage.clear();
+        // localStorage.clear();
         this.$router.push({ name: "Login" });
         this.$store.dispatch("auth/logout");
       } else {
