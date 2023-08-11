@@ -1,52 +1,58 @@
 <template>
-  <div>
-    <h1
-      v-if="
-        saved.length > 0 &&
-        saved.find((x) => x.id === search.id) &&
-        searchList.length === 0
-      "
-    >
-      There are no saved graphs, either
-    </h1>
-    <h2>This is where my {{ search.id }} graph would go</h2>
-    <img class="dinkleImg" :src="img" />
-  </div>
+  <h3>Graph Data for {{ search.symbol }}</h3>
+  <div class="doody" ref="chart"></div>
 </template>
 
 <script>
+import Plotly from "plotly.js-dist-min";
+
 export default {
-  data: () => ({
-    img: require("@/assets/dinkleberg.png"),
-  }),
+  data() {
+    return {
+      config: { responsive: true },
+    };
+  },
+  props: {
+    data: Object,
+    layout: Object,
+  },
+  methods: {
+    plot() {
+      var chart = this.$refs.chart;
+      Plotly.newPlot(chart, this.data, this.chartLayout, this.config);
+    },
+  },
   computed: {
+    chartLayout() {
+      return {
+        ...this.layout,
+      };
+    },
     search() {
       return this.$store.getters["searches/currentSearch"];
     },
-    saved() {
-      return this.$store.getters["searches/savedList"];
+  },
+  watch: {
+    data: {
+      handler() {
+        this.plot();
+      },
+      deep: true,
     },
-    searchList() {
-      return this.$store.getters["searches/searchList"];
-    },
+  },
+  mounted() {
+    if (this.data) {
+      this.plot();
+    }
   },
 };
 </script>
 
 <style scoped>
-h2 {
-  text-align: center;
-  margin-top: 3%;
-  margin-bottom: 15px;
-}
-h1 {
-  text-align: center;
-  margin-top: 3%;
-}
-.dinkleImg {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  padding-bottom: 30%;
+.doody {
+  width: 70%;
+  margin: auto;
+  margin-top: 50px;
+  background-color: whitesmoke;
 }
 </style>
