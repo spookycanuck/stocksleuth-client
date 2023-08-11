@@ -1,15 +1,15 @@
 <template>
   <div>
-    <h3>Summary Data for {{ search.id }}</h3><br />
+    <h3>Summary Data for {{ search.symbol }}</h3><br />
     <img class="companyLogo" :src="search.image" />
     <v-table class="vtable" v-if="search">
       <tr>
         <th>Ticker</th>
-        <td>{{ search.id }}</td>
+        <td>{{ search.symbol }}</td>
       </tr>
       <tr>
         <th>Company Name</th>
-        <td >{{ search.name }}</td>
+        <td >{{ search.companyName }}</td>
       </tr>
       <tr>
         <th>Market Cap</th>
@@ -25,7 +25,7 @@
       </tr>
       <tr>
         <th>City</th>
-        <td >{{ search.name }}</td>
+        <td >{{ search.city }}</td>
       </tr>
       <tr>
         <th>State</th>
@@ -57,11 +57,11 @@
       </tr>
       <tr>
         <th>Full Time Employees</th>
-        <td >{{ String(search.employees).replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}</td>
+        <td >{{ String(search.fullTimeEmployees).replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}</td>
       </tr>
       <tr>
         <th>Exchange</th>
-        <td >{{ search.exchange }} ({{ search.exchangeAbbv }})</td>
+        <td >{{ search.exchange }} ({{ search.exchangeShortName }})</td>
       </tr>
       <tr>
         <th>Industry</th>

@@ -6,23 +6,23 @@
       v-for="search in savedSearches"
       :key="search"
     >
-      <v-expansion-panel-title>{{ search.id }}</v-expansion-panel-title>
+      <v-expansion-panel-title>{{ search.symbol }}</v-expansion-panel-title>
       <v-expansion-panel-text>
         <p>
           Name:
-          {{ search.name }}
+          {{ search.companyName }}
         </p>
         <p>
           Current Price:
-          {{ search.close }}
+          ${{ search.price }}
         </p>
         <p>
           24hr High:
-          {{ search.high }}
+          ${{ search.high }}
         </p>
         <p>
           24hr Low:
-          {{ search.low }}
+          ${{ search.low }}
         </p>
         <v-divider />
         <div style="display: flex; margin-top: 10px">

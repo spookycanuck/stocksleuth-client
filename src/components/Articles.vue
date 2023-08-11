@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>Recent Articles about {{ search.id }}</h3><br />
+    <h3>Recent Articles about {{ search.symbol }}</h3><br />
     <v-table class="vtable" v-if="search">
       <tr>
         <td>Articles</td>

@@ -1,11 +1,19 @@
 <template>
   <div>
-    <h3>Most Recent Price Data for {{ search.id }}</h3>
+    <h3>Most Recent Price Data for {{ search.symbol }}</h3>
     <br />
     <v-table class="vtable" v-if="search">
       <tr>
         <th>Latest Data</th>
-        <td>{{ search.label }}</td>
+        <td>{{ search.label.slice(0, -2) + "20" + search.label.slice(-2) }}</td>
+      </tr>
+      <tr>
+        <th>Current Price</th>
+        <td>${{ search.price }}</td>
+      </tr>
+      <tr>
+        <th>Latest Open</th>
+        <td>${{ search.open }}</td>
       </tr>
       <tr>
         <th>Latest Close</th>
@@ -17,7 +25,7 @@
       </tr>
       <tr>
         <th>Price Range (52 wk)</th>
-        <td>{{ search.priceRange }}</td>
+        <td>{{ search.range }}</td>
       </tr>
       <tr>
         <th>High Price (24 hr)</th>
@@ -37,11 +45,6 @@
               ? "$" + search.change
               : "(" + String(search.change).slice(1) + ")"
           }}
-          <!-- 
-              : String(search.change).slice(0, 1) +
-               "$" +
-               String(search.change).slice(1)               
-            -->
         </td>
       </tr>
       <tr>
@@ -53,7 +56,7 @@
         >
           {{
             search.changeOverTime > 0
-              ? "$" + search.changeOverTime
+              ? search.changeOverTime
               : "(" + String(search.changeOverTime).slice(1) + ")"
           }}
         </td>
@@ -67,7 +70,7 @@
         >
           {{
             search.changePercent > 0
-              ? search.changeOverTime
+              ? search.changePercent
               : "(" + String(search.changePercent).slice(1) + ")"
           }}
         </td>
@@ -79,9 +82,7 @@
       <tr>
         <th>Discounted Cash Flow Diff</th>
         <td
-          :style="[
-            search.dcfDiff > 0 ? { color: 'black' } : { color: 'red' },
-          ]"
+          :style="[search.dcfDiff > 0 ? { color: 'black' } : { color: 'red' }]"
         >
           ${{ search.dcfDiff }}
         </td>
@@ -121,7 +122,7 @@
       </tr>
       <tr>
         <th>Currently Trading?</th>
-        <td>{{ search.isTrading == true ? "Yes" : "No" }}</td>
+        <td>{{ search.isActivelyTrading == true ? "Yes" : "No" }}</td>
       </tr>
     </v-table>
   </div>
